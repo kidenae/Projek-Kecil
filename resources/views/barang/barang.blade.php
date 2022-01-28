@@ -24,6 +24,7 @@
           </div>
           <div class="col-lg-6 col-5 text-right">
             <a href="in_barang" class="btn btn-neutral"><i class="fas fa-plus"></i> Tambah Barang</a>
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal-form">Form</button>
           </div>
         </div>
       </div>
@@ -60,9 +61,13 @@
                     <td> {{ $a->jumlah }}</td>
                     <td> {{ $a->harga }}</td>
                     <td>
-                        <a href="{{ url('barang/edit/'.$a->id) }}" class="center btn btn-mn btn-warning">
+                        {{-- <a href="" data-toggle="modal" data-target="#modal-form2" data-id="{{ $a->id }}" data-nama="{{ $a->nama_brg }}" class="center edit btn btn-mn btn-warning">
                             <i class=" fas fa-pencil-alt"></i>
-                        </a>
+                        </a> --}}
+                        <button data-toggle="modal" data-target="#modal-form{{ $a->id }}" class="center btn btn-mn btn-warning"><i class=" fas fa-pencil-alt"></i></button>
+                        {{-- <a href="{{ url('barang/edit/'.$a->id) }}" data-toggle="modal" data-target="#modal-form2" class="center btn btn-mn btn-warning">
+                            <i class=" fas fa-pencil-alt"></i>
+                        </a> --}}
                         <form method="POST" class="d-inline" action="{{ url('barang/'.$a->id) }}" onsubmit="return confirm('Apakah Anda Yakin Hapus Data Barang {{ $a->nama_brg }} ?')">
                             @method('delete')
                             @csrf
@@ -96,7 +101,7 @@
                 <li class="page-item">
                   <a class="page-link" href="#">
                     <i class="fas fa-angle-right"></i>
-                    <span class="sr-only">Next Page</span>
+                    <span class="sr-only">Next</span>
                   </a>
                 </li>
               </ul>
@@ -135,4 +140,121 @@
     </footer>
   </div>
 
+{{-- TAMBAH DATA --}}
+  <div class="row">
+    <div class="col-md-6">
+        <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+            <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card bg-secondary border-0 mb-0">
+                            <div class="card-header bg-transparent ">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <div class="text-muted text-center"><h2>Masukkan Data Barang</h2></div>
+
+                            </div>
+                            <div class="card-body">
+                                <form class="needs-validation" novalidate="" action="{{ url('barang') }}" method="post">
+                                    {{ csrf_field() }}
+                                        <div class="form-group">
+                                        <label class="form-control-label">ID Barang</label>
+                                        <input type="text" disabled required  class="form-control" value="{{ $id }}" placeholder="ID Barang" >
+                                        <input type="hidden" name="idBrg" value="{{ $id }}">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Nama Barang</label>
+                                        <input type="text" required name="nama_brg" class="form-control" placeholder="Nama Barang">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Kategori</label>
+                                        <input type="text" required  name="ktg" class="form-control" placeholder="Kategori">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Deskripsi</label>
+                                        <textarea class="form-control" required name="deskrip" placeholder="Deskripsi"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Jumlah</label>
+                                        <input type="number" required name="jml" class="form-control" placeholder="Jumlah">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Harga</label>
+                                        <input type="number" required name="hrg" class="form-control" placeholder="Harga">
+                                        </div>
+                                        <div class="form-group text-center"><br>
+                                            <input type="submit" class="btn btn-success" value="simpan">
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{{-- EDIT DATA --}}
+@foreach ($barang as $b)
+  <div class="row">
+    <div class="col-md-6">
+        <div class="modal fade" id="modal-form{{ $b->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+            <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="card bg-secondary border-0 mb-0">
+                            <div class="card-header bg-transparent ">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">x</span>
+                                </button>
+                                <div class="text-muted text-center"><h2>Ubah Data Barang</h2></div>
+
+                            </div>
+                            <div class="card-body">
+                                <form class="needs-validation" novalidate="" action="{{ url('barang') }}" method="post">
+                                    {{ csrf_field() }}
+                                        {{-- <div class="form-group">
+                                        <label class="form-control-label">ID Barang</label>
+                                        <input type="text" disabled required  class="form-control" value="{{ $id }}" placeholder="ID Barang" >
+                                        <input type="hidden" name="idBrg" value="{{ $id }}">
+                                        </div> --}}
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Nama Barang</label>
+                                        <input type="text" required name="nama_brg" value="{{ $b->nama_brg }}" class="form-control" placeholder="Nama Barang">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Kategori</label>
+                                        <input type="text" required  name="ktg" value="{{ $b->kategori }}" class="form-control" placeholder="Kategori">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Deskripsi</label>
+                                        <textarea class="form-control" required name="deskrip" value="{{ $b->deskripsi }}" placeholder="Deskripsi"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Jumlah</label>
+                                        <input type="number" required name="jml" value="{{ $b->jumlah }}" class="form-control" placeholder="Jumlah">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="form-control-label" >Harga</label>
+                                        <input type="number" required name="hrg" value="{{ $b->harga }}" class="form-control" placeholder="Harga">
+                                        </div>
+                                        <div class="form-group text-center"><br>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+                                                Kembali
+                                            </button>
+                                            <input type="submit" class="btn btn-success" value="simpan">
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+@endforeach
 @endsection

@@ -16,8 +16,9 @@ class BarangController extends Controller
      */
     public function index()
     {
+        $id = IdGenerator::generate(['table' => 'barangs', 'length' => 8, 'prefix' =>'BRG-', 'field' => 'id_barang']);
         $barang = Barang::all()->sortByDesc('created_at');
-        return view('barang.barang', compact('barang'));
+        return view('barang.barang', compact('barang', 'id'));
     }
 
     /**
