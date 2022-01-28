@@ -111,6 +111,7 @@ class BarangController extends Controller
     public function destroy(Barang $barang, $id)
     {
         DB::table('barangs')->where('id', $id)->delete();
+        return redirect('barang')->with('status', 'Data Berhasil Dihapus!');
 
     }
 }

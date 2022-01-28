@@ -25,6 +25,7 @@ Route::get('/barang', [BarangController::class, 'index']);
 Route::post('/barang', [BarangController::class, 'create']);
 Route::get('/barang/edit/{id}', [BarangController::class, 'edit']);
 Route::patch('/barang/{id}', [BarangController::class, 'update']);
+Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
 
 Route::get('/in_barang', [BarangController::class, 'show']);
 

@@ -213,8 +213,9 @@
 
                             </div>
                             <div class="card-body">
-                                <form class="needs-validation" novalidate="" action="{{ url('barang') }}" method="post">
-                                    {{ csrf_field() }}
+                                <form class="needs-validation" novalidate="" action="{{ url('barang/'.$b->id) }}" method="post">
+                                    @method('patch')
+                                    @csrf
                                         {{-- <div class="form-group">
                                         <label class="form-control-label">ID Barang</label>
                                         <input type="text" disabled required  class="form-control" value="{{ $id }}" placeholder="ID Barang" >
