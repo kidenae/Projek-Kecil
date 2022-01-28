@@ -96,7 +96,7 @@
                 <li class="page-item">
                   <a class="page-link" href="#">
                     <i class="fas fa-angle-right"></i>
-                    <span class="sr-only">Next</span>
+                    <span class="sr-only">Next Page</span>
                   </a>
                 </li>
               </ul>
